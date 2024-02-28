@@ -16,15 +16,20 @@ public class GameManager : MonoBehaviour
     {
         ResetAllPieces();
         
-        while (!IsGameOver())
+        while (true)
         {
             if (_isFirstPlayerTurn)
                 yield return StartCoroutine(_player1.Play(this, _player2.Pieces));
             else
                 yield return StartCoroutine(_player2.Play(this, _player1.Pieces));
 
+            if (IsGameOver())
+                break;
+            
             _isFirstPlayerTurn = !_isFirstPlayerTurn;
         }
+
+        Debug.Log("Winner is " + (_isFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
     }
 
     void ResetAllPieces()
