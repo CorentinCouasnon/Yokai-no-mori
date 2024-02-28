@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Piece : MonoBehaviour
 {
+    [FormerlySerializedAs("<StartPosition>k__BackingField"), SerializeField] Vector2 _startPosition;
+    [SerializeField] Player _startingOwner;
+    
     [field: SerializeField] public PiecesType Type { get; set; }
     [field: SerializeField] public Vector2[] Directions { get; set; }
-    [field: SerializeField] public Vector2 StartPosition { get; private set; }
-
+    
+    public Player Owner { get; set; }
     public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
     
@@ -20,6 +24,7 @@ public class Piece : MonoBehaviour
         var capturedPiece = context.AllPieces.FirstOrDefault(piece => piece.Position == newPosition);
         if (capturedPiece != null)
         {
+            capturedPiece.Owner = context.IsFirstPlayerTurn ? context.Player1 : context.Player2;
             capturedPiece.IsCaptured = true;
             return;
         }
@@ -32,7 +37,7 @@ public class Piece : MonoBehaviour
         Position = newPosition;
     }
 
-    public List<(Vector2, Vector2)> GetAllowedMoves(GameContext context)
+    public List<(Vector2 position, Vector2 rotation)> GetAllowedMoves(GameContext context)
     {
         var moves = new List<(Vector2, Vector2)>();
 
@@ -45,7 +50,7 @@ public class Piece : MonoBehaviour
                 {
                     var pos = new Vector2(j, i);
 
-                    offsetRotation = GameManager.Rotate(pos, context.Player2Pieces.Contains(this) ? 180 : 0);
+                    offsetRotation = GameManager.Rotate(pos, context.Player2Pieces.Where(piece => piece.Owner == context.Player2).Contains(this) ? 180 : 0);
                     //Debug.Log("offsetRotation " + offsetRotation.normalized);
                     if (context.AllPieces.All(piece => piece.Position != pos))
                         moves.Add((pos, Vector2.zero));
@@ -73,7 +78,8 @@ public class Piece : MonoBehaviour
 
     public void ResetPiece()
     {
-        Position = StartPosition;
+        Position = _startPosition;
+        Owner = _startingOwner;
         IsCaptured = false;
     }
 }
