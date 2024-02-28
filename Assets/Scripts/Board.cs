@@ -2,8 +2,8 @@
 
 public class Board : MonoBehaviour
 {
-    const int ROW_COUNT = 4;
-    const int COLUMN_COUNT = 3;
+    public const int ROW_COUNT = 4;
+    public const int COLUMN_COUNT = 3;
 
     public static bool IsOutOfBounds(Vector2 position)
     {

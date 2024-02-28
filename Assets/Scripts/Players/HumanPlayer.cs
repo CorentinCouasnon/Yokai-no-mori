@@ -13,7 +13,7 @@ public class HumanPlayer : Player
         Cell.CellClicked -= OnCellClicked;
     }
 
-    public override IEnumerator Play(GameManager gameManager, List<Piece> opponentPieces)
+    public override IEnumerator Play(GameContext context)
     {
         yield break;
     }

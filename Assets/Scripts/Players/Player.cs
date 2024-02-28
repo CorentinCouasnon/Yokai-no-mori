@@ -5,7 +5,5 @@ using UnityEngine;
 
 public abstract class Player : MonoBehaviour
 {
-    [field: SerializeField] public List<Piece> Pieces { get; set; }
-
-    public abstract IEnumerator Play(GameManager gameManager, List<Piece> opponentPieces);
+    public abstract IEnumerator Play(GameContext context);
 }
