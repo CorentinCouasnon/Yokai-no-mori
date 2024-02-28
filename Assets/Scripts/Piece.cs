@@ -10,6 +10,27 @@ public class Piece : MonoBehaviour
 
     public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
+    
+    public void Move(GameContext context, Vector2 newPosition)
+    {
+        // Enregistrement de l'action
+        context.Actions.Add((this, newPosition));
+        
+        // Capture
+        var capturedPiece = context.AllPieces.FirstOrDefault(piece => piece.Position == newPosition);
+        if (capturedPiece != null)
+        {
+            capturedPiece.IsCaptured = true;
+            return;
+        }
+
+        // Parachutage
+        if (IsCaptured)
+            IsCaptured = false;
+        
+        // Déplacement
+        Position = newPosition;
+    }
 
     public List<(Vector2, Vector2)> GetAllowedMoves(GameContext context)
     {
@@ -53,5 +74,6 @@ public class Piece : MonoBehaviour
     public void ResetPiece()
     {
         Position = StartPosition;
+        IsCaptured = false;
     }
 }

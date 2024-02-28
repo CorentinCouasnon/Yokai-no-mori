@@ -20,7 +20,7 @@ public class AIPlayer : Player
         }
 
         var randomMove = allMoves.GetRandom();
-        //context.GameManager.MovePiece(randomMove.piece, randomMove.position);
+        randomMove.piece.Move(context, randomMove.position);
         yield return _waitOneSec;
     }
 }
