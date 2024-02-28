@@ -1087,8 +1087,8 @@ MonoBehaviour:
   - {fileID: 1368023739}
   - {fileID: 135145686}
   - {fileID: 1794650099}
-  _player1: {fileID: 0}
-  _player2: {fileID: 0}
+  _player1: {fileID: 24502889}
+  _player2: {fileID: 209491063}
 --- !u!4 &1784286390
 Transform:
   m_ObjectHideFlags: 0
