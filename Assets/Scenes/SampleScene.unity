@@ -173,7 +173,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1647774456}
     m_Modifications:
     - target: {fileID: 2121212330341970562, guid: 5974d611954eea749ab391265df42c0f, type: 3}
       propertyPath: m_LocalScale.x
@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tanuki
       objectReference: {fileID: 0}
+    - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 24502889}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -298,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 159588418}
   <Position>k__BackingField: {x: 1, y: 0}
 --- !u!114 &159588418
 MonoBehaviour:
@@ -388,7 +391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 166027462}
   <Position>k__BackingField: {x: 2, y: 1}
 --- !u!114 &166027462
 MonoBehaviour:
@@ -522,7 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 353428724}
   <Position>k__BackingField: {x: 2, y: 0}
 --- !u!114 &353428724
 MonoBehaviour:
@@ -612,7 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 463894745}
   <Position>k__BackingField: {x: 1, y: 1}
 --- !u!114 &463894745
 MonoBehaviour:
@@ -750,8 +750,20 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1576402156}
     m_Modifications:
+    - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 209491063}
+    - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
+      propertyPath: _startPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
+      propertyPath: _startPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
       propertyPath: <StartPosition>k__BackingField.x
       value: 1
@@ -762,7 +774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1464223969504899662, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
       propertyPath: m_Name
-      value: Kodama (1)
+      value: Kodama
       objectReference: {fileID: 0}
     - target: {fileID: 6349661577590907130, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
       propertyPath: m_LocalScale.x
@@ -907,8 +919,16 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1647774456}
     m_Modifications:
+    - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 24502889}
+    - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
+      propertyPath: _startPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: <StartPosition>k__BackingField.x
       value: 1
@@ -1100,7 +1120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 963109956}
   <Position>k__BackingField: {x: 1, y: 2}
 --- !u!114 &963109956
 MonoBehaviour:
@@ -1349,11 +1368,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1576402156}
     m_Modifications:
+    - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 209491063}
     - target: {fileID: 5380202693189285819, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: m_Name
-      value: Koropokkuru (1)
+      value: Koropokkuru
       objectReference: {fileID: 0}
     - target: {fileID: 7442175657635641992, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: m_LocalScale.x
@@ -1430,7 +1453,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1576402156}
     m_Modifications:
     - target: {fileID: 1567730322730764154, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: m_LocalScale.x
@@ -1481,12 +1504,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 209491063}
+    - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
+      propertyPath: _startPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: <StartPosition>k__BackingField.y
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8893079912726621271, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: m_Name
-      value: Kitsune (1)
+      value: Kitsune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1515,8 +1546,20 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1647774456}
     m_Modifications:
+    - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 24502889}
+    - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
+      propertyPath: _startPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
+      propertyPath: _startPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
       propertyPath: <StartPosition>k__BackingField.x
       value: 1
@@ -1708,7 +1751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 1506985043}
   <Position>k__BackingField: {x: 2, y: 2}
 --- !u!114 &1506985043
 MonoBehaviour:
@@ -1748,6 +1790,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506985040}
   m_CullTransparentMesh: 1
+--- !u!1 &1576402155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576402156}
+  m_Layer: 0
+  m_Name: Player2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1576402156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576402155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1369150463}
+  - {fileID: 716663192}
+  - {fileID: 1368023738}
+  - {fileID: 1794650100}
+  m_Father: {fileID: 2006638445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1647774455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1647774456}
+  m_Layer: 0
+  m_Name: Player1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1647774456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647774455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2073168583}
+  - {fileID: 1401334942}
+  - {fileID: 962754604}
+  - {fileID: 135145685}
+  m_Father: {fileID: 2006638445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1748067166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 1748067169}
   <Position>k__BackingField: {x: 2, y: 3}
 --- !u!114 &1748067169
 MonoBehaviour:
@@ -1867,7 +1978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d4e6416363fe645aae696adad8faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _board: {fileID: 1106655668}
   _allPieces:
   - {fileID: 2073168584}
   - {fileID: 1401334943}
@@ -1877,29 +1987,6 @@ MonoBehaviour:
   - {fileID: 716663193}
   - {fileID: 1368023739}
   - {fileID: 1794650099}
-  _player1Pieces:
-  - {fileID: 2073168584}
-  - {fileID: 1401334943}
-  - {fileID: 962754605}
-  - {fileID: 135145686}
-  _player2Pieces:
-  - {fileID: 1369150464}
-  - {fileID: 716663193}
-  - {fileID: 1368023739}
-  - {fileID: 1794650099}
-  _cells:
-  - {fileID: 7667680230582214350}
-  - {fileID: 8383494138904762386}
-  - {fileID: 5123776691550164276}
-  - {fileID: 6043402349776072811}
-  - {fileID: 159588417}
-  - {fileID: 463894744}
-  - {fileID: 963109955}
-  - {fileID: 1985498784}
-  - {fileID: 353428723}
-  - {fileID: 166027461}
-  - {fileID: 1506985042}
-  - {fileID: 1748067168}
   _player1: {fileID: 24502889}
   _player2: {fileID: 209491063}
 --- !u!4 &1784286390
@@ -1923,7 +2010,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1576402156}
     m_Modifications:
     - target: {fileID: 2121212330341970562, guid: 5974d611954eea749ab391265df42c0f, type: 3}
       propertyPath: m_LocalScale.x
@@ -1975,7 +2062,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4671481858790999746, guid: 5974d611954eea749ab391265df42c0f, type: 3}
       propertyPath: m_Name
-      value: Tanuki (1)
+      value: Tanuki
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 209491063}
+    - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
+      propertyPath: _startPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
+      propertyPath: _startPosition.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
       propertyPath: <StartPosition>k__BackingField.x
@@ -2099,7 +2198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 1985498785}
   <Position>k__BackingField: {x: 1, y: 3}
 --- !u!114 &1985498785
 MonoBehaviour:
@@ -2168,14 +2266,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2073168583}
-  - {fileID: 1369150463}
-  - {fileID: 1401334942}
-  - {fileID: 716663192}
-  - {fileID: 962754604}
-  - {fileID: 1368023738}
-  - {fileID: 135145685}
-  - {fileID: 1794650100}
+  - {fileID: 1647774456}
+  - {fileID: 1576402156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2073168582
@@ -2184,7 +2276,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2006638445}
+    m_TransformParent: {fileID: 1647774456}
     m_Modifications:
     - target: {fileID: 1567730322730764154, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: m_LocalScale.x
@@ -2233,6 +2325,14 @@ PrefabInstance:
     - target: {fileID: 1567730322730764154, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 24502889}
+    - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
+      propertyPath: _startPosition.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: <StartPosition>k__BackingField.x
@@ -2370,7 +2470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 5123776691550164277}
   <Position>k__BackingField: {x: 0, y: 2}
 --- !u!114 &5123776691550164277
 MonoBehaviour:
@@ -2441,7 +2540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 6043402349776072812}
   <Position>k__BackingField: {x: 0, y: 3}
 --- !u!114 &6043402349776072812
 MonoBehaviour:
@@ -2512,7 +2610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 7667680230582214351}
   <Position>k__BackingField: {x: 0, y: 0}
 --- !u!114 &7667680230582214351
 MonoBehaviour:
@@ -2583,7 +2680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 8383494138904762387}
   <Position>k__BackingField: {x: 0, y: 1}
 --- !u!114 &8383494138904762387
 MonoBehaviour:

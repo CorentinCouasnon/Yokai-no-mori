@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Piece : MonoBehaviour
 {
-    [FormerlySerializedAs("<StartPosition>k__BackingField"), SerializeField] Vector2 _startPosition;
+    [SerializeField] Vector2 _startPosition;
     [SerializeField] Player _startingOwner;
     
     [field: SerializeField] public PiecesType Type { get; set; }
