@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HumanPlayer : Player
 {
     bool _canPlay = false;
-    GameManager _gameManager;
+
+    List<(Cell,Vector2)> _selectableCells = new List<(Cell,Vector2)>();
+    Piece _selectedPiece;
     
+    GameContext _gameContext;
+
     void OnEnable()
     {
         Cell.CellClicked += OnCellClicked;
@@ -17,10 +22,13 @@ public class HumanPlayer : Player
         Cell.CellClicked -= OnCellClicked;
     }
 
-    public override IEnumerator Play(GameManager gameManager, List<Piece> opponentPieces)
+    public override IEnumerator Play(GameContext context)
     {
+        Debug.Log("Play " + gameObject.name);
         _canPlay = true;
-        _gameManager = gameManager;
+        _selectableCells.Clear();
+        _selectedPiece = null;
+        _gameContext = context;
         yield return new WaitForSeconds(20f);
         _canPlay = false;
         Debug.Log("End Turn " + gameObject.name);
@@ -30,26 +38,40 @@ public class HumanPlayer : Player
     {
         if (_canPlay)
         {
-            Piece piece = Pieces.Find(piece => piece.Position == cell.Position);
-            Debug.Log(piece);
-            if (piece != null)
+            if (!_selectedPiece)
             {
-                Debug.Log("Clicked on own piece");
-                List<Vector2> moveList = piece.GetAllowedMoves(Pieces);
-                foreach (var move in moveList)
+                Piece piece = _gameContext.OwnPieces.ToList().Find(piece => piece.Position == cell.Position);
+                
+                if (piece != null)
                 {
-                    Debug.Log("Can move to " + move);
-                }
-                List<Cell> selectableCells = new List<Cell>();
-                    
-                foreach (var pos in moveList)
-                {
-                    Cell newCell = _gameManager.GetCellFromPosition(pos);
-                    if (newCell != null)
+                    List<(Vector2, Vector2)> moveList = piece.GetAllowedMoves(_gameContext);
+
+                    foreach (var pos in moveList)
                     {
-                        selectableCells.Add(newCell);
-                        newCell.DisplayColor(true);
+                        Cell newCell = _gameContext.GameManager.GetCellFromPosition(pos.Item1);
+                        if (newCell != null)
+                        {
+                            _selectableCells.Add((newCell, pos.Item2));
+                            newCell.DisplayColor(true);
+                        }
                     }
+
+                    if (_selectableCells.Count > 0)
+                    {
+                        _selectedPiece = piece;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var tuple in _selectableCells)
+                {
+                    if (tuple.Item1 == cell)
+                    {
+                        _gameContext.GameManager.MovePiece(_selectedPiece, cell.Position,tuple.Item2);
+                    }
+                    
+                    tuple.Item1.DisplayColor(false);
                 }
             }
         }

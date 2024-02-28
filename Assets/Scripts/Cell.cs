@@ -12,7 +12,6 @@ public class Cell : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Cell " + Position);
         CellClicked?.Invoke(this);
     }
 
