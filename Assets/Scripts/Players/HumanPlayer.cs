@@ -6,11 +6,13 @@ using UnityEngine;
 public class HumanPlayer : Player
 {
     bool _canPlay = false;
-
+    bool _turnIsEnded = false;
+    
     List<(Cell,Vector2)> _selectableCells = new List<(Cell,Vector2)>();
     Piece _selectedPiece;
     
     GameContext _gameContext;
+    
 
     void OnEnable()
     {
@@ -26,10 +28,11 @@ public class HumanPlayer : Player
     {
         Debug.Log("Play " + gameObject.name);
         _canPlay = true;
+        _turnIsEnded = false;
         _selectableCells.Clear();
         _selectedPiece = null;
         _gameContext = context;
-        yield return new WaitForSeconds(20f);
+        yield return new WaitUntil(()=> _turnIsEnded);
         _canPlay = false;
         Debug.Log("End Turn " + gameObject.name);
     }
@@ -68,11 +71,13 @@ public class HumanPlayer : Player
                 {
                     if (tuple.Item1 == cell)
                     {
-                        _gameContext.GameManager.MovePiece(_selectedPiece, cell.Position,tuple.Item2);
+                        _selectedPiece.Move(_gameContext, cell.Position,tuple.Item2);
                     }
                     
                     tuple.Item1.DisplayColor(false);
                 }
+
+                _turnIsEnded = true;
             }
         }
     }

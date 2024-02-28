@@ -27,28 +27,22 @@ public class GameManager : MonoBehaviour
             if (_gameContext.IsFirstPlayerTurn)
                 yield return StartCoroutine(_player1.Play(_gameContext));
             else
-                yield return StartCoroutine(_player2.Play(context));
+                yield return StartCoroutine(_player2.Play(_gameContext));
             
-            if (IsGameOver(context))
+            if (IsGameOver(_gameContext))
                 break;
             
             _gameContext.IsFirstPlayerTurn = !_gameContext.IsFirstPlayerTurn;
 
         }
 
-        if (!IsThreeFoldRepetition(context))
-            Debug.Log("Winner is " + (context.IsFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
+        if (!IsThreeFoldRepetition(_gameContext))
+            Debug.Log("Winner is " + (_gameContext.IsFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
         else
             Debug.Log("Game ends in a draw !");
     }
 
     private void Start()
-    {
-        StartCoroutine(Play());
-    }
-
-    [ContextMenu("Play Game")]
-    private void PlayManager()
     {
         StartCoroutine(Play());
     }
@@ -91,7 +85,7 @@ public class GameManager : MonoBehaviour
                 .All(opponentPiece => 
                     !opponentPiece
                         .GetAllowedMoves(context)
-                        .Contains(koropokkuru.Position)
+                        .Contains((koropokkuru.Position, Vector2.zero))
                     );
         }
     }

@@ -11,7 +11,7 @@ public class Piece : MonoBehaviour
     public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
     
-    public void Move(GameContext context, Vector2 newPosition)
+    public void Move(GameContext context, Vector2 newPosition, Vector2 direction)
     {
         // Enregistrement de l'action
         context.Actions.Add((this, newPosition));
@@ -30,13 +30,14 @@ public class Piece : MonoBehaviour
         
         // Déplacement
         Position = newPosition;
+        transform.position += new Vector3(direction.x, -direction.y); 
+        Position = newPosition;
     }
 
     public List<(Vector2, Vector2)> GetAllowedMoves(GameContext context)
     {
         var moves = new List<(Vector2, Vector2)>();
-
-        Vector2 offsetRotation = Vector2.one;
+        
         if (IsCaptured)
         {
             for (var i = 0; i < Board.COLUMN_COUNT; i++)
@@ -44,9 +45,7 @@ public class Piece : MonoBehaviour
                 for (var j = 0; j < Board.ROW_COUNT; j++)
                 {
                     var pos = new Vector2(j, i);
-
-                    offsetRotation = GameManager.Rotate(pos, context.Player2Pieces.Contains(this) ? 180 : 0);
-                    //Debug.Log("offsetRotation " + offsetRotation.normalized);
+                    
                     if (context.AllPieces.All(piece => piece.Position != pos))
                         moves.Add((pos, Vector2.zero));
                 }
@@ -60,9 +59,7 @@ public class Piece : MonoBehaviour
 
                 if (context.OwnPieces.Any(piece => piece.Position == newPosition))
                     continue;
-
-                offsetRotation = GameManager.Rotate(newPosition, context.Player2Pieces.Contains(this)? 180 : 0);
-                //Debug.Log("offsetRotation " + offsetRotation.normalized);
+                
                 if (!Board.IsOutOfBounds(newPosition))
                     moves.Add((newPosition,direction));
             }   
