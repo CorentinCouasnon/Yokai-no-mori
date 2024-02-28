@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
                     !opponentPiece
                         .GetAllowedMoves(context)
                         .Select(move => move.Item1)
-                        .Contains(koropokkuru.Position, Vector2.zero)
+                        .Contains(koropokkuru.Position)
                     );
         }
     }
