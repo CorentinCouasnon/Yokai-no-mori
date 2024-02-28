@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Board _board;
     [SerializeField] List<Piece> _allPieces;
-    [SerializeField] List<Piece> _player1Pieces;
-    [SerializeField] List<Piece> _player2Pieces;
     [SerializeField] List<Cell> _cells;
     [SerializeField] Player _player1;
     [SerializeField] Player _player2;
@@ -49,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     GameContext CreateContext()
     {
-        return new GameContext(this, _allPieces, _player1Pieces, _player2Pieces);
+        return new GameContext(this, _allPieces, _player1, _player2);
     }
 
     bool IsGameOver(GameContext context)
@@ -74,9 +70,9 @@ public class GameManager : MonoBehaviour
 
         bool IsKoropokkuruPromotedAndSafe(Piece koropokkuru)
         {
-            var isPlayer1Piece = context.Player1Pieces.Contains(koropokkuru);
+            var isPlayer1Piece = koropokkuru.Owner == context.Player1;
             var promotingRow = isPlayer1Piece ? 3 : 0;
-            var opponentPieces = isPlayer1Piece ? context.Player2Pieces : context.Player1Pieces;
+            var opponentPieces = context.AllPieces.Where(piece => piece.Owner == isPlayer1Piece ? context.Player2 : context.Player1);
             
             if (koropokkuru.IsCaptured || !Mathf.Approximately(koropokkuru.Position.y, promotingRow))
                 return false;
@@ -85,7 +81,8 @@ public class GameManager : MonoBehaviour
                 .All(opponentPiece => 
                     !opponentPiece
                         .GetAllowedMoves(context)
-                        .Contains((koropokkuru.Position, Vector2.zero))
+                        .Select(move => move.Item1)
+                        .Contains(koropokkuru.Position, Vector2.zero)
                     );
         }
     }
@@ -135,21 +132,23 @@ public class GameManager : MonoBehaviour
 public class GameContext
 {
     public GameManager GameManager { get; }
-    public IReadOnlyList<Piece> AllPieces { get; }
-    public IReadOnlyList<Piece> Player1Pieces { get; }
-    public IReadOnlyList<Piece> Player2Pieces { get; }
+    public List<Piece> AllPieces { get; }
+    public Player Player1 { get; }
+    public Player Player2 { get; }
     
-    public IReadOnlyList<Piece> OwnPieces => IsFirstPlayerTurn ? Player1Pieces : Player2Pieces;
-    public IReadOnlyList<Piece> OpponentPieces => IsFirstPlayerTurn ? Player2Pieces : Player1Pieces;
+    public List<Piece> Player1Pieces => AllPieces.Where(piece => piece.Owner == Player1).ToList();
+    public List<Piece> Player2Pieces => AllPieces.Where(piece => piece.Owner == Player2).ToList();
+    public List<Piece> OwnPieces => AllPieces.Where(piece => piece.Owner == IsFirstPlayerTurn ? Player1 : Player2).ToList();
+    public List<Piece> OpponentPieces => AllPieces.Where(piece => piece.Owner != IsFirstPlayerTurn ? Player1 : Player2).ToList();
     
     public bool IsFirstPlayerTurn { get; set; } = true;
     public List<(Piece piece, Vector2 position)> Actions { get; set; } = new List<(Piece piece, Vector2 position)>();
 
-    public GameContext(GameManager gameManager, IReadOnlyList<Piece> allPieces, IReadOnlyList<Piece> player1Pieces, IReadOnlyList<Piece> player2Pieces)
+    public GameContext(GameManager gameManager, List<Piece> allPieces, Player player1, Player player2)
     {
         GameManager = gameManager;
         AllPieces = allPieces;
-        Player1Pieces = player1Pieces;
-        Player2Pieces = player2Pieces;
+        Player1 = player1;
+        Player2 = player2;
     }
 }
