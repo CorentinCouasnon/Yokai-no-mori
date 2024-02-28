@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Board _board;
+    [SerializeField] List<Cell> _cells;
     [SerializeField] List<Piece> _pieces;
     [SerializeField] Player _player1;
     [SerializeField] Player _player2;
@@ -38,6 +39,11 @@ public class GameManager : MonoBehaviour
         {
             piece.ResetPiece();
         }
+    }
+
+    public Cell GetCellFromPosition(Vector2 pos)
+    {
+        return _cells.Find(cell => cell.Position == pos);
     }
 
     bool IsGameOver()

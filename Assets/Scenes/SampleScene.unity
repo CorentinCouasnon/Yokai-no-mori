@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 159588418}
   <Position>k__BackingField: {x: 1, y: 0}
 --- !u!114 &159588418
 MonoBehaviour:
@@ -317,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -392,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 166027462}
   <Position>k__BackingField: {x: 2, y: 1}
 --- !u!114 &166027462
 MonoBehaviour:
@@ -406,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -530,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 353428724}
   <Position>k__BackingField: {x: 2, y: 0}
 --- !u!114 &353428724
 MonoBehaviour:
@@ -544,7 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -619,6 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 463894745}
   <Position>k__BackingField: {x: 1, y: 1}
 --- !u!114 &463894745
 MonoBehaviour:
@@ -633,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1106,6 +1110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 963109956}
   <Position>k__BackingField: {x: 1, y: 2}
 --- !u!114 &963109956
 MonoBehaviour:
@@ -1120,7 +1125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1225,7 +1230,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1070125736
 RectTransform:
@@ -1713,6 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 1506985043}
   <Position>k__BackingField: {x: 2, y: 2}
 --- !u!114 &1506985043
 MonoBehaviour:
@@ -1727,7 +1733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1802,6 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 1748067169}
   <Position>k__BackingField: {x: 2, y: 3}
 --- !u!114 &1748067169
 MonoBehaviour:
@@ -1816,7 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1871,6 +1878,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _board: {fileID: 1106655668}
+  _cells:
+  - {fileID: 7667680230582214350}
+  - {fileID: 8383494138904762386}
+  - {fileID: 5123776691550164276}
+  - {fileID: 6043402349776072811}
+  - {fileID: 159588417}
+  - {fileID: 463894744}
+  - {fileID: 963109955}
+  - {fileID: 1985498784}
+  - {fileID: 353428723}
+  - {fileID: 166027461}
+  - {fileID: 1506985042}
+  - {fileID: 1748067168}
   _pieces:
   - {fileID: 2073168584}
   - {fileID: 1369150464}
@@ -2079,6 +2099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 1985498785}
   <Position>k__BackingField: {x: 1, y: 3}
 --- !u!114 &1985498785
 MonoBehaviour:
@@ -2093,7 +2114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2349,6 +2370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 5123776691550164277}
   <Position>k__BackingField: {x: 0, y: 2}
 --- !u!114 &5123776691550164277
 MonoBehaviour:
@@ -2363,7 +2385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2419,6 +2441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 6043402349776072812}
   <Position>k__BackingField: {x: 0, y: 3}
 --- !u!114 &6043402349776072812
 MonoBehaviour:
@@ -2433,7 +2456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2489,6 +2512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 7667680230582214351}
   <Position>k__BackingField: {x: 0, y: 0}
 --- !u!114 &7667680230582214351
 MonoBehaviour:
@@ -2503,7 +2527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2559,6 +2583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5dab18821374a1882676d0b81d54d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Image>k__BackingField: {fileID: 8383494138904762387}
   <Position>k__BackingField: {x: 0, y: 1}
 --- !u!114 &8383494138904762387
 MonoBehaviour:
@@ -2573,7 +2598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0, b: 0.094594955, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
