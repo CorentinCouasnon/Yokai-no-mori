@@ -57,4 +57,10 @@ public class GameManager : MonoBehaviour
         if (piece.IsCaptured)
             piece.IsCaptured = false;
     }
+
+    [ContextMenu("Play Game")]
+    private void PlayManager()
+    {
+        StartCoroutine(Play());
+    }
 }

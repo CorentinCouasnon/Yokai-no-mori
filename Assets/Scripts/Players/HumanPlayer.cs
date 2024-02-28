@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class HumanPlayer : Player
 {
@@ -15,7 +16,7 @@ public class HumanPlayer : Player
 
     public override IEnumerator Play(GameManager gameManager, List<Piece> opponentPieces)
     {
-        yield break;
+        yield return new WaitForSeconds(2f);
     }
 
     void OnCellClicked(Cell cell)
