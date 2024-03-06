@@ -58,7 +58,7 @@ public class Piece : MonoBehaviour
         else
         {
             IsParachuted = false;
-            transform.position += new Vector3(direction.x, -direction.y);
+            transform.position += new Vector3(direction.x, direction.y);
         }
         
         // Déplacement
@@ -86,7 +86,7 @@ public class Piece : MonoBehaviour
         {
             foreach (var direction in Directions)
             {
-                Vector2 newDirection = (Owner == context.Player1 ? direction : -direction);
+                Vector2 newDirection = (Owner == context.Player1 ? -direction : direction);
                 var newPosition = Position + newDirection;
                 
                 if (context.OwnPieces.Any(piece => piece.Position == newPosition))

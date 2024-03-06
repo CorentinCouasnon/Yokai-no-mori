@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         bool IsKoropokkuruPromotedAndSafe(Piece koropokkuru)
         {
             var isPlayer1Piece = koropokkuru.Owner == context.Player1;
-            var promotingRow = isPlayer1Piece ? 3 : 0;
+            var promotingRow = isPlayer1Piece ? 0 : 3;
             var opponentPieces = context.AllPieces.Where(piece => piece.Owner == isPlayer1Piece ? context.Player2 : context.Player1);
             
             if (koropokkuru.IsCaptured || !Mathf.Approximately(koropokkuru.Position.y, promotingRow))
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         foreach (var kodama in kodamas)
         {
             var isPlayer1Piece = kodama.Owner == context.Player1;
-            var promotingRow = isPlayer1Piece ? 3 : 0;
+            var promotingRow = isPlayer1Piece ? 0 : 3;
 
             if (Mathf.Approximately(kodama.Position.y, promotingRow) && !kodama.IsParachuted)
             {
