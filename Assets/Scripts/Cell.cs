@@ -18,7 +18,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler
     public void DisplayColor(bool value)
     {
         Color newColor = Image.color;
-        newColor.a = value ? 0.2f : 0;
+        newColor.a = value ? 0.5f : 0;
         Image.color = newColor;
     }
 }
