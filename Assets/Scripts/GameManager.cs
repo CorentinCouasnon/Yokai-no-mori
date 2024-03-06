@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Piece _kodamaPrefab;
     [SerializeField] Piece _kodamaSamuraiPrefab;
     
-    private GameContext _gameContext;
+    GameContext _gameContext;
     
     public IEnumerator Play()
     {
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game ends in a draw !");
     }
 
-    private void Start()
+    void Start()
     {
         RestartGame();
     }
@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour
         var anyKoropokkuruPromoted = AnyKoropokkuruPromotedAndSafe(context);
         var threeFoldRepetition = IsThreeFoldRepetition(context);
 
+        if (anyKoropokkuruCaptured)
+            Debug.Log("Win by capture.");
+        if (anyKoropokkuruPromoted)
+            Debug.Log("Win by promotion.");
+        
         return anyKoropokkuruCaptured || anyKoropokkuruPromoted || threeFoldRepetition;
     }
 
@@ -92,18 +97,16 @@ public class GameManager : MonoBehaviour
         {
             var isPlayer1Piece = koropokkuru.Owner == context.Player1;
             var promotingRow = isPlayer1Piece ? 0 : 3;
-            var opponentPieces = context.AllPieces.Where(piece => piece.Owner == isPlayer1Piece ? context.Player2 : context.Player1);
+            var opponentPieces = context.AllPieces.Where(piece => piece.Owner == (isPlayer1Piece ? context.Player2 : context.Player1)).ToList();
             
             if (koropokkuru.IsCaptured || !Mathf.Approximately(koropokkuru.Position.y, promotingRow))
                 return false;
 
-            return opponentPieces
-                .All(opponentPiece => 
-                    !opponentPiece
-                        .GetAllowedMoves(context)
-                        .Select(move => move.Item1)
-                        .Contains(koropokkuru.Position)
-                    );
+            return !opponentPieces
+                .Any(opponentPiece => opponentPiece
+                    .GetAllowedMoves(context)
+                    .Select(move => move.Item1)
+                    .Contains(koropokkuru.Position));
         }
     }
 
@@ -193,14 +196,6 @@ public class GameManager : MonoBehaviour
     {
         _capturedCells.First(cell => cell.CapturedPiece == piece).CapturedPiece = null;
     }
-    
-    public static Vector2 Rotate(Vector2 v, float delta) {
-        return new Vector2(
-            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
-            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
-        ) * Mathf.Rad2Deg;
-    }
-
 }
 
 public class GameContext

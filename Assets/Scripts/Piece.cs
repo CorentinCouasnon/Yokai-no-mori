@@ -88,10 +88,12 @@ public class Piece : MonoBehaviour
             {
                 Vector2 newDirection = (Owner == context.Player1 ? new Vector2(direction.x, -direction.y) : direction);
                 var newPosition = Position + newDirection;
-                
-                if (context.OwnPieces.Any(piece => piece.Position == newPosition))
-                    continue;
 
+                var ownPieces = Owner == context.Player1 ? context.Player1Pieces : context.Player2Pieces;
+                
+                if (ownPieces.Any(piece => piece.Position == newPosition))
+                    continue;
+                
                 if (!Board.IsOutOfBounds(newPosition))
                     moves.Add((newPosition ,newDirection));
             }   
