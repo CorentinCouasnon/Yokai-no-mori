@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("UI")] 
+    [SerializeField] MainMenuUI _mainMenuUI;
+    
+    [Header("Game")]
     [SerializeField] List<Piece> _allPieces;
     [SerializeField] List<Cell> _cells;
     [SerializeField] List<CapturedCell> _capturedCells;
@@ -18,12 +22,13 @@ public class GameManager : MonoBehaviour
     
     public IEnumerator Play()
     {
-        ResetAllPieces();
         _gameContext = CreateContext();
+        ResetAllPieces();
+        ResetCapturedCells();
+        _mainMenuUI.ChangePlayerTurnUI(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
         
         while (true)
         {
-            Debug.Log(_gameContext.IsFirstPlayerTurn);
             if (_gameContext.IsFirstPlayerTurn)
                 yield return StartCoroutine(_player1.Play(_gameContext));
             else
@@ -35,16 +40,25 @@ public class GameManager : MonoBehaviour
                 break;
             
             _gameContext.IsFirstPlayerTurn = !_gameContext.IsFirstPlayerTurn;
+            _mainMenuUI.ChangePlayerTurnUI(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
 
         }
 
         if (!IsThreeFoldRepetition(_gameContext))
+        {
             Debug.Log("Winner is " + (_gameContext.IsFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
+            _mainMenuUI.EndGame(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
+        }
         else
             Debug.Log("Game ends in a draw !");
     }
 
     private void Start()
+    {
+        RestartGame();
+    }
+
+    public void RestartGame()
     {
         StartCoroutine(Play());
     }
@@ -147,11 +161,21 @@ public class GameManager : MonoBehaviour
         return context.Actions[^1] == context.Actions[^5] && context.Actions[^2] == context.Actions[^6];
     }
 
-    void ResetAllPieces()
+    [ContextMenu("ResetAllPieces")]
+    public void ResetAllPieces()
     {
+        _gameContext.IsFirstPlayerTurn = true;
         foreach (var piece in _allPieces)
         {
-            piece.ResetPiece();
+            piece.ResetPiece(_gameContext);
+        }
+    }
+
+    public void ResetCapturedCells()
+    {
+        foreach (var capturedCell in _capturedCells)
+        {
+            capturedCell.CapturedPiece = null;
         }
     }
 

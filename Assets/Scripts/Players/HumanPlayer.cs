@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HumanPlayer : Player
 {
+    int _playerIndex;
     bool _canPlay = false;
     bool _turnIsEnded = false;
     
@@ -86,6 +87,7 @@ public class HumanPlayer : Player
                 }
                 else
                 {
+                    _selectedPiece = null;
                     if (hasMoved)
                     {
                         _turnIsEnded = true;

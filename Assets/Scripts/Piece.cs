@@ -75,7 +75,7 @@ public class Piece : MonoBehaviour
             {
                 for (var j = 0; j < Board.ROW_COUNT; j++)
                 {
-                    var pos = new Vector2(j, i);
+                    var pos = new Vector2(i, j);
                     
                     if (context.AllPieces.All(piece => piece.Position != pos))
                         moves.Add((pos, Vector2.zero));
@@ -86,7 +86,7 @@ public class Piece : MonoBehaviour
         {
             foreach (var direction in Directions)
             {
-                Vector2 newDirection = (Owner == context.Player1 ? -direction : direction);
+                Vector2 newDirection = (Owner == context.Player1 ? new Vector2(direction.x, -direction.y) : direction);
                 var newPosition = Position + newDirection;
                 
                 if (context.OwnPieces.Any(piece => piece.Position == newPosition))
@@ -100,11 +100,18 @@ public class Piece : MonoBehaviour
         return moves;
     }
 
-    public void ResetPiece()
+    public void ResetPiece(GameContext context)
     {
         Position = _startPosition;
         Owner = _startingOwner;
-        Debug.LogError(gameObject.name + " Owner = " + Owner);
+        transform.position = context.GameManager.GetCellFromPosition(Position).transform.position;
+        transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0);
         IsCaptured = false;
+        IsParachuted = false;
+        
+        if (Type == PiecesType.KodamaSamurai)
+        {
+            context.GameManager.ChangePieceToArchetype(this, PiecesType.Kodama);
+        }
     }
 }
