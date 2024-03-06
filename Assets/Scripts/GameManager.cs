@@ -138,8 +138,8 @@ public class GameContext
     
     public List<Piece> Player1Pieces => AllPieces.Where(piece => piece.Owner == Player1).ToList();
     public List<Piece> Player2Pieces => AllPieces.Where(piece => piece.Owner == Player2).ToList();
-    public List<Piece> OwnPieces => AllPieces.Where(piece => piece.Owner == IsFirstPlayerTurn ? Player1 : Player2).ToList();
-    public List<Piece> OpponentPieces => AllPieces.Where(piece => piece.Owner != IsFirstPlayerTurn ? Player1 : Player2).ToList();
+    public List<Piece> OwnPieces => AllPieces.Where(piece => piece.Owner == (IsFirstPlayerTurn ? Player1 : Player2)).ToList();
+    public List<Piece> OpponentPieces => AllPieces.Where(piece => piece.Owner != (IsFirstPlayerTurn ? Player1 : Player2)).ToList();
     
     public bool IsFirstPlayerTurn { get; set; } = true;
     public List<(Piece piece, Vector2 position)> Actions { get; set; } = new List<(Piece piece, Vector2 position)>();

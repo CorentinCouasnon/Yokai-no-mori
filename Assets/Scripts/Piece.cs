@@ -5,7 +5,7 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     [SerializeField] Vector2 _startPosition;
-    [SerializeField] Player _startingOwner;
+    [SerializeField] public Player _startingOwner;
     
     [field: SerializeField] public PiecesType Type { get; set; }
     [field: SerializeField] public Vector2[] Directions { get; set; }
@@ -34,8 +34,7 @@ public class Piece : MonoBehaviour
         
         // Déplacement
         Position = newPosition;
-        transform.position += new Vector3(direction.x, -direction.y); 
-        Position = newPosition;
+        transform.position += new Vector3(direction.x, -direction.y);
     }
 
     public List<(Vector2 position, Vector2 rotation)> GetAllowedMoves(GameContext context)
@@ -59,13 +58,14 @@ public class Piece : MonoBehaviour
         {
             foreach (var direction in Directions)
             {
-                var newPosition = Position + direction;
-
+                Vector2 newDirection = (Owner == context.Player1 ? direction : -direction);
+                var newPosition = Position + newDirection;
+                
                 if (context.OwnPieces.Any(piece => piece.Position == newPosition))
                     continue;
-                
+
                 if (!Board.IsOutOfBounds(newPosition))
-                    moves.Add((newPosition,direction));
+                    moves.Add((newPosition ,newDirection));
             }   
         }
 
@@ -76,6 +76,7 @@ public class Piece : MonoBehaviour
     {
         Position = _startPosition;
         Owner = _startingOwner;
+        Debug.LogError(gameObject.name + " Owner = " + Owner);
         IsCaptured = false;
     }
 }

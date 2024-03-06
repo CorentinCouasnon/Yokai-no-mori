@@ -41,10 +41,10 @@ public class HumanPlayer : Player
     {
         if (_canPlay)
         {
+            Piece piece = _gameContext.OwnPieces.Find(piece => piece.Position == cell.Position);
+
             if (!_selectedPiece)
             {
-                Piece piece = _gameContext.OwnPieces.ToList().Find(piece => piece.Position == cell.Position);
-                
                 if (piece != null)
                 {
                     List<(Vector2, Vector2)> moveList = piece.GetAllowedMoves(_gameContext);
@@ -58,7 +58,6 @@ public class HumanPlayer : Player
                             newCell.DisplayColor(true);
                         }
                     }
-
                     if (_selectableCells.Count > 0)
                     {
                         _selectedPiece = piece;
@@ -67,17 +66,31 @@ public class HumanPlayer : Player
             }
             else
             {
+                bool hasMoved = false;
                 foreach (var tuple in _selectableCells)
                 {
-                    if (tuple.Item1 == cell)
+                    tuple.Item1.DisplayColor(false);
+                    
+                    if (_selectedPiece != null && tuple.Item1 == cell)
                     {
                         _selectedPiece.Move(_gameContext, cell.Position,tuple.Item2);
+                        hasMoved = true;
                     }
-                    
-                    tuple.Item1.DisplayColor(false);
                 }
-
-                _turnIsEnded = true;
+                
+                if (piece != null)
+                {
+                    _selectedPiece = null;
+                    _selectableCells.Clear();
+                    OnCellClicked(cell);
+                }
+                else
+                {
+                    if (hasMoved)
+                    {
+                        _turnIsEnded = true;
+                    }
+                }
             }
         }
     }

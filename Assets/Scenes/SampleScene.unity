@@ -930,6 +930,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 24502889}
     - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
+      propertyPath: _startPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: _startPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -1379,6 +1383,14 @@ PrefabInstance:
       propertyPath: _startingOwner
       value: 
       objectReference: {fileID: 209491063}
+    - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
+      propertyPath: _startPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
+      propertyPath: _startPosition.y
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5380202693189285819, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: m_Name
       value: Koropokkuru
