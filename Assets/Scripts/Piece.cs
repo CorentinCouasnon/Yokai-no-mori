@@ -9,10 +9,12 @@ public class Piece : MonoBehaviour
     
     [field: SerializeField] public PiecesType Type { get; set; }
     [field: SerializeField] public Vector2[] Directions { get; set; }
+    [field: SerializeField] public SpriteRenderer SpriteRenderer { get; set; }
     
     public Player Owner { get; set; }
     public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
+    public bool IsParachuted { get; set; }
     
     public void Move(GameContext context, Cell cell, Vector2 direction)
     {
@@ -28,6 +30,12 @@ public class Piece : MonoBehaviour
             capturedPiece.IsCaptured = true;
             if (capturedPiece.Type != PiecesType.Koropokkuru)
             {
+                // Check Kodama Samurai
+                if (capturedPiece.Type == PiecesType.KodamaSamurai)
+                {
+                    context.GameManager.ChangePieceToArchetype(capturedPiece, PiecesType.Kodama);
+                }
+                
                 CapturedCell capturedCell = context.GameManager.GetRemainingCapturedCell(Owner);
                 if (capturedCell != null)
                 {
@@ -44,10 +52,12 @@ public class Piece : MonoBehaviour
         {
             transform.position = cell.transform.position;
             IsCaptured = false;
+            IsParachuted = true;
             context.GameManager.RemovePieceFromCapturedCell(this);
         }
         else
         {
+            IsParachuted = false;
             transform.position += new Vector3(direction.x, -direction.y);
         }
         

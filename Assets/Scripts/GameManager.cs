@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Player _player1;
     [SerializeField] Player _player2;
 
+    [SerializeField] Piece _kodamaPrefab;
+    [SerializeField] Piece _kodamaSamuraiPrefab;
+    
     private GameContext _gameContext;
     
     public IEnumerator Play()
@@ -25,6 +28,8 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(_player1.Play(_gameContext));
             else
                 yield return StartCoroutine(_player2.Play(_gameContext));
+
+            CheckKodamaPromoted(_gameContext);
             
             if (IsGameOver(_gameContext))
                 break;
@@ -85,6 +90,40 @@ public class GameManager : MonoBehaviour
                         .Select(move => move.Item1)
                         .Contains(koropokkuru.Position)
                     );
+        }
+    }
+
+    void CheckKodamaPromoted(GameContext context)
+    {
+        List<Piece> kodamas = context.AllPieces.FindAll(piece => piece.Type == PiecesType.Kodama);
+
+        foreach (var kodama in kodamas)
+        {
+            var isPlayer1Piece = kodama.Owner == context.Player1;
+            var promotingRow = isPlayer1Piece ? 3 : 0;
+
+            if (Mathf.Approximately(kodama.Position.y, promotingRow) && !kodama.IsParachuted)
+            {
+                // Transforme en samourai
+                ChangePieceToArchetype(kodama, PiecesType.KodamaSamurai);
+            }
+        }
+    }
+
+    public void ChangePieceToArchetype(Piece piece, PiecesType piecesType)
+    {
+        switch (piecesType)
+        {
+            case PiecesType.Kodama : 
+                piece.Type = _kodamaPrefab.Type;
+                piece.Directions = _kodamaPrefab.Directions;
+                piece.SpriteRenderer.sprite = _kodamaPrefab.SpriteRenderer.sprite;
+                break;
+            case PiecesType.KodamaSamurai :
+                piece.Type = _kodamaSamuraiPrefab.Type;
+                piece.Directions = _kodamaSamuraiPrefab.Directions;
+                piece.SpriteRenderer.sprite = _kodamaSamuraiPrefab.SpriteRenderer.sprite;
+                break;
         }
     }
 
