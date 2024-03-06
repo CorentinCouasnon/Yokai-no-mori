@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b49bef5b824b3c8b3b88ea27f02b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startPosition: {x: 0, y: 0}
+  _startingOwner: {fileID: 0}
   <Type>k__BackingField: 4
   <Directions>k__BackingField:
   - {x: 0, y: 1}
-  <StartPosition>k__BackingField: {x: 0, y: 0}
+  <SpriteRenderer>k__BackingField: {fileID: 4920117977759055168}
 --- !u!212 &4920117977759055168
 SpriteRenderer:
   m_ObjectHideFlags: 0
