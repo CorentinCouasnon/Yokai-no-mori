@@ -123,7 +123,12 @@ public class GameManager : MonoBehaviour
 
     public CapturedCell GetRemainingCapturedCell(Player player)
     {
-        return _capturedCells.First(cell => cell.Owner == player);
+        return _capturedCells.First(cell => cell.Owner == player && cell.CapturedPiece == null);
+    }
+
+    public void RemovePieceFromCapturedCell(Piece piece)
+    {
+        _capturedCells.First(cell => cell.CapturedPiece == piece).CapturedPiece = null;
     }
     
     public static Vector2 Rotate(Vector2 v, float delta) {

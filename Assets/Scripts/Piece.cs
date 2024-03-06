@@ -26,13 +26,16 @@ public class Piece : MonoBehaviour
         {
             capturedPiece.Owner = context.IsFirstPlayerTurn ? context.Player1 : context.Player2;
             capturedPiece.IsCaptured = true;
-            CapturedCell capturedCell = context.GameManager.GetRemainingCapturedCell(Owner);
-            if (capturedCell != null)
+            if (capturedPiece.Type != PiecesType.Koropokkuru)
             {
-                capturedPiece.transform.position = capturedCell.transform.position;
-                capturedPiece.Position = capturedCell.Position;
-                capturedCell.CapturedPiece = capturedPiece;
-                capturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0); 
+                CapturedCell capturedCell = context.GameManager.GetRemainingCapturedCell(Owner);
+                if (capturedCell != null)
+                {
+                    capturedPiece.transform.position = capturedCell.transform.position;
+                    capturedPiece.Position = capturedCell.Position;
+                    capturedCell.CapturedPiece = capturedPiece;
+                    capturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0); 
+                }
             }
         }
 
@@ -41,6 +44,7 @@ public class Piece : MonoBehaviour
         {
             transform.position = cell.transform.position;
             IsCaptured = false;
+            context.GameManager.RemovePieceFromCapturedCell(this);
         }
         else
         {
