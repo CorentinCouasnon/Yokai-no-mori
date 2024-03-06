@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] List<Piece> _allPieces;
     [SerializeField] List<Cell> _cells;
+    [SerializeField] List<CapturedCell> _capturedCells;
     [SerializeField] Player _player1;
     [SerializeField] Player _player2;
 
@@ -119,6 +120,11 @@ public class GameManager : MonoBehaviour
     {
         return _cells.Find(cell => cell.Position == pos);
     }
+
+    public CapturedCell GetRemainingCapturedCell(Player player)
+    {
+        return _capturedCells.First(cell => cell.Owner == player);
+    }
     
     public static Vector2 Rotate(Vector2 v, float delta) {
         return new Vector2(
@@ -140,7 +146,7 @@ public class GameContext
     public List<Piece> Player2Pieces => AllPieces.Where(piece => piece.Owner == Player2).ToList();
     public List<Piece> OwnPieces => AllPieces.Where(piece => piece.Owner == (IsFirstPlayerTurn ? Player1 : Player2)).ToList();
     public List<Piece> OpponentPieces => AllPieces.Where(piece => piece.Owner != (IsFirstPlayerTurn ? Player1 : Player2)).ToList();
-    
+
     public bool IsFirstPlayerTurn { get; set; } = true;
     public List<(Piece piece, Vector2 position)> Actions { get; set; } = new List<(Piece piece, Vector2 position)>();
 

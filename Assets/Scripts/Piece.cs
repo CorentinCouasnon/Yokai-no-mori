@@ -14,9 +14,10 @@ public class Piece : MonoBehaviour
     public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
     
-    public void Move(GameContext context, Vector2 newPosition, Vector2 direction)
+    public void Move(GameContext context, Cell cell, Vector2 direction)
     {
         // Enregistrement de l'action
+        Vector2 newPosition = cell.Position;
         context.Actions.Add((this, newPosition));
         
         // Capture
@@ -25,16 +26,29 @@ public class Piece : MonoBehaviour
         {
             capturedPiece.Owner = context.IsFirstPlayerTurn ? context.Player1 : context.Player2;
             capturedPiece.IsCaptured = true;
-            return;
+            CapturedCell capturedCell = context.GameManager.GetRemainingCapturedCell(Owner);
+            if (capturedCell != null)
+            {
+                capturedPiece.transform.position = capturedCell.transform.position;
+                capturedPiece.Position = capturedCell.Position;
+                capturedCell.CapturedPiece = capturedPiece;
+                capturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0); 
+            }
         }
 
         // Parachutage
         if (IsCaptured)
+        {
+            transform.position = cell.transform.position;
             IsCaptured = false;
+        }
+        else
+        {
+            transform.position += new Vector3(direction.x, -direction.y);
+        }
         
         // Déplacement
         Position = newPosition;
-        transform.position += new Vector3(direction.x, -direction.y);
     }
 
     public List<(Vector2 position, Vector2 rotation)> GetAllowedMoves(GameContext context)

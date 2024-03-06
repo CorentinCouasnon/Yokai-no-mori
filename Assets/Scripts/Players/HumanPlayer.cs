@@ -73,7 +73,7 @@ public class HumanPlayer : Player
                     
                     if (_selectedPiece != null && tuple.Item1 == cell)
                     {
-                        _selectedPiece.Move(_gameContext, cell.Position,tuple.Item2);
+                        _selectedPiece.Move(_gameContext, cell,tuple.Item2);
                         hasMoved = true;
                     }
                 }
