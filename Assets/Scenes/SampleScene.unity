@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &24502888
 Transform:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
       propertyPath: _startingOwner
       value: 
-      objectReference: {fileID: 24502889}
+      objectReference: {fileID: 461822603}
     - target: {fileID: 5800082769451587863, guid: 5974d611954eea749ab391265df42c0f, type: 3}
       propertyPath: _startPosition.y
       value: 3
@@ -673,7 +673,7 @@ MonoBehaviour:
   <Image>k__BackingField: {fileID: 287952227}
   <Position>k__BackingField: {x: -2, y: 3}
   <CapturedPiece>k__BackingField: {fileID: 0}
-  <Owner>k__BackingField: {fileID: 24502889}
+  <Owner>k__BackingField: {fileID: 461822603}
 --- !u!1 &353428721
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +897,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443761456}
   m_CullTransparentMesh: 1
+--- !u!1 &461822601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 461822602}
+  - component: {fileID: 461822603}
+  m_Layer: 0
+  m_Name: AIPlayer1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &461822602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461822601}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 833733479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &461822603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461822601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47984721139647588ad382e0bb1971ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IndexPlayer>k__BackingField: 1
 --- !u!1 &463894742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,7 +1607,7 @@ MonoBehaviour:
   <Image>k__BackingField: {fileID: 801338785}
   <Position>k__BackingField: {x: -3, y: 3}
   <CapturedPiece>k__BackingField: {fileID: 0}
-  <Owner>k__BackingField: {fileID: 24502889}
+  <Owner>k__BackingField: {fileID: 461822603}
 --- !u!1 &833733478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1639,9 @@ Transform:
   m_Children:
   - {fileID: 1784286390}
   - {fileID: 24502888}
+  - {fileID: 461822602}
   - {fileID: 209491062}
+  - {fileID: 1202336297}
   - {fileID: 1106655667}
   - {fileID: 2006638445}
   - {fileID: 1647774456}
@@ -1737,7 +1784,7 @@ PrefabInstance:
     - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: _startingOwner
       value: 
-      objectReference: {fileID: 24502889}
+      objectReference: {fileID: 461822603}
     - target: {fileID: 1536534981343197970, guid: cb6607a1519907e459d7349c09e7dda7, type: 3}
       propertyPath: _startPosition.x
       value: 1
@@ -2348,7 +2395,7 @@ GameObject:
   - component: {fileID: 1121943937}
   - component: {fileID: 1121943939}
   m_Layer: 0
-  m_Name: Cell_1_1
+  m_Name: Cell_6_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2518,7 +2565,52 @@ MonoBehaviour:
   <Image>k__BackingField: {fileID: 1172052371}
   <Position>k__BackingField: {x: -1, y: 3}
   <CapturedPiece>k__BackingField: {fileID: 0}
-  <Owner>k__BackingField: {fileID: 24502889}
+  <Owner>k__BackingField: {fileID: 461822603}
+--- !u!1 &1202336295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202336297}
+  - component: {fileID: 1202336298}
+  m_Layer: 0
+  m_Name: AIPlayer2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1202336297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202336295}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 833733479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202336298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202336295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47984721139647588ad382e0bb1971ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IndexPlayer>k__BackingField: 2
 --- !u!1 &1260322806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,7 +3040,7 @@ PrefabInstance:
     - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
       propertyPath: _startingOwner
       value: 
-      objectReference: {fileID: 24502889}
+      objectReference: {fileID: 461822603}
     - target: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
       propertyPath: _startPosition.x
       value: 1
@@ -3807,7 +3899,7 @@ MonoBehaviour:
   - {fileID: 273052557}
   - {fileID: 857536438}
   - {fileID: 1121943939}
-  _player1: {fileID: 24502889}
+  _player1: {fileID: 461822603}
   _player2: {fileID: 209491063}
   _kodamaPrefab: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
   _kodamaSamuraiPrefab: {fileID: 8584376461806428290, guid: 4b15c7fa16345104da5e15164ccf6a81, type: 3}
@@ -4287,7 +4379,7 @@ PrefabInstance:
     - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: _startingOwner
       value: 
-      objectReference: {fileID: 24502889}
+      objectReference: {fileID: 461822603}
     - target: {fileID: 3653606513933790225, guid: 5ffe6fce41cfa894f9fc3daaade1d3a4, type: 3}
       propertyPath: _startPosition.x
       value: 2

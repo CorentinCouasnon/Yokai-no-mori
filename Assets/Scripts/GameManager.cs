@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         return new GameContext(this, _allPieces, _player1, _player2);
     }
 
-    bool IsGameOver(GameContext context)
+    public bool IsGameOver(GameContext context)
     {
         var anyKoropokkuruCaptured = AnyKoropokkuruCaptured(context);
         var anyKoropokkuruPromoted = AnyKoropokkuruPromotedAndSafe(context);
@@ -80,6 +80,27 @@ public class GameManager : MonoBehaviour
             Debug.Log("Win by promotion.");
         
         return anyKoropokkuruCaptured || anyKoropokkuruPromoted || threeFoldRepetition;
+    }
+
+    public GameOverScore CheckWinner(GameContext context)
+    {
+        GameOverScore gameOverScore = GameOverScore.Tie;
+        
+        if (!IsThreeFoldRepetition(context))
+        {
+            bool isPlayer2Win = context.Player1Pieces.Where(piece => piece.Type == PiecesType.Koropokkuru)
+                .Any(piece => piece.IsCaptured);
+            bool isPlayer1Win = context.Player2Pieces.Where(piece => piece.Type == PiecesType.Koropokkuru)
+                .Any(piece => piece.IsCaptured);
+
+            if (isPlayer2Win || isPlayer1Win)
+            {
+                gameOverScore = isPlayer1Win ? GameOverScore.P1Win : GameOverScore.P2Win;
+            }
+
+        }
+
+        return gameOverScore;
     }
 
     bool AnyKoropokkuruCaptured(GameContext context)
