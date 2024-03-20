@@ -12,7 +12,7 @@ public class Piece : MonoBehaviour
     [field: SerializeField] public SpriteRenderer SpriteRenderer { get; set; }
     
     public Player Owner { get; set; }
-    public Vector2 Position { get; set; }
+    [field: SerializeField] public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
     public bool IsParachuted { get; set; }
     
@@ -114,7 +114,7 @@ public class Piece : MonoBehaviour
                 var newPosition = Position + newDirection;
 
                 var ownPieces = Owner == context.Player1 ? context.Player1Pieces : context.Player2Pieces;
-                
+
                 if (ownPieces.Any(piece => piece.Position == newPosition))
                     continue;
                 
