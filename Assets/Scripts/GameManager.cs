@@ -44,13 +44,13 @@ public class GameManager : MonoBehaviour
 
         }
 
-        if (!IsThreeFoldRepetition(_gameContext))
-        {
-            Debug.Log("Winner is " + (_gameContext.IsFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
-            _mainMenuUI.EndGame(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
-        }
-        else
-            Debug.Log("Game ends in a draw !");
+        // if (!IsThreeFoldRepetition(_gameContext))
+        // {
+        //     Debug.Log("Winner is " + (_gameContext.IsFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
+        //     _mainMenuUI.EndGame(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
+        // }
+        // else
+        //     Debug.Log("Game ends in a draw !");
     }
 
     void Start()

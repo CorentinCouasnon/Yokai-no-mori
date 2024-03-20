@@ -24,6 +24,7 @@ public class Piece : MonoBehaviour
         
         // Capture
         var capturedPiece = context.AllPieces.FirstOrDefault(piece => piece.Position == newPosition);
+        Debug.LogError(newPosition + " " +capturedPiece);
         if (capturedPiece != null)
         {
             capturedPiece.Owner = context.IsFirstPlayerTurn ? context.Player1 : context.Player2;
@@ -48,6 +49,29 @@ public class Piece : MonoBehaviour
         }
 
         // Parachutage
+        if (IsCaptured)
+        {
+            transform.position = cell.transform.position;
+            IsCaptured = false;
+            IsParachuted = true;
+            context.GameManager.RemovePieceFromCapturedCell(this);
+        }
+        else
+        {
+            IsParachuted = false;
+            transform.position += new Vector3(direction.x, direction.y);
+        }
+        
+        // Déplacement
+        Position = newPosition;
+    }
+
+    public void MoveAI(GameContext context, Cell cell, Vector2 direction)
+    {
+        // Enregistrement de l'action
+        Vector2 newPosition = cell.Position;
+        context.Actions.Add((this, newPosition));
+        
         if (IsCaptured)
         {
             transform.position = cell.transform.position;

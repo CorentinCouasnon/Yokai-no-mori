@@ -10,7 +10,7 @@ public enum GameOverScore
 }
 public class AIPlayer : Player
 {
-    readonly WaitForSeconds _waitOneSec = new WaitForSeconds(1);
+    readonly WaitForSeconds _waitOneSec = new WaitForSeconds(5);
     
     public override IEnumerator Play(GameContext context)
     {
@@ -28,9 +28,9 @@ public class AIPlayer : Player
             {
                 var randomMove = allMoves.GetRandom();
                 Debug.Log(randomMove);
-                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
+                randomMove.piece.MoveAI(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
                 float score = Minimax(context, 0, false);
-                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(-randomMove.move.position), -randomMove.move.rotation);
+                randomMove.piece.MoveAI(context, context.GameManager.GetCellFromPosition(randomMove.move.position-randomMove.move.position), -randomMove.move.rotation);
 
                 if (score > bestScore)
                 {
@@ -44,6 +44,7 @@ public class AIPlayer : Player
             }
         }
 
+        Debug.LogError(moveToPlay.piece.name + " MoveToPlay " + moveToPlay.move.position + " " + moveToPlay.move.rotation);
         moveToPlay.piece.Move(context, context.GameManager.GetCellFromPosition(moveToPlay.move.position), moveToPlay.move.rotation);
         
         yield return _waitOneSec;
@@ -51,6 +52,11 @@ public class AIPlayer : Player
     
     private int Minimax(GameContext context, int depth, bool isMaximizing)
     {
+        if (depth > 3)
+        {
+            return 0;
+        }
+        
         if (context.GameManager.IsGameOver(context))
         {
             return (int) context.GameManager.CheckWinner(context);
@@ -69,15 +75,20 @@ public class AIPlayer : Player
                 {
                     allMoves.Add((pieceP1, allowedMove));
                 }
-                
-                var randomMove = allMoves.GetRandom();
-                Debug.LogError("RandomMove " + randomMove.move.position + " " + randomMove.move.rotation);
-                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
-                float score = Minimax(context, depth + 1, false);
-                Debug.LogError("RandomMove " + -randomMove.move.position + " " + -randomMove.move.rotation);
-                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(-randomMove.move.position), -randomMove.move.rotation);
-                allMoves.Remove(randomMove);
-                bestScore = Mathf.Max(score, bestScore);
+
+                if (allMoves.Count != 0)
+                {
+                    var randomMove = allMoves.GetRandom();
+                    // Debug.LogError(randomMove.piece.name + " RandomMove " + randomMove.move.position + " " + randomMove.move.rotation);
+                    randomMove.piece.MoveAI(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
+                    // Debug.LogError(randomMove.piece.name + " " + randomMove.piece.Position);
+                    float score = Minimax(context, depth + 1, false);
+                    // Debug.LogError(randomMove.piece.name + " RandomMove " + -randomMove.move.position + " " + -randomMove.move.rotation);
+                    randomMove.piece.MoveAI(context, context.GameManager.GetCellFromPosition(randomMove.move.position-randomMove.move.position), -randomMove.move.rotation);
+                    // Debug.LogError(randomMove.piece.name + " " + randomMove.piece.Position);
+                    //allMoves.Remove(randomMove);
+                    bestScore = Mathf.Max(score, bestScore);
+                }
             }
         }
         //Player
@@ -92,15 +103,20 @@ public class AIPlayer : Player
                 {
                     allMoves.Add((pieceP2, allowedMove));
                 }
-                
-                var randomMove = allMoves.GetRandom();
-                Debug.LogError("RandomMove " + randomMove.move.position + " " + randomMove.move.rotation);
-                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
-                float score = Minimax(context, depth + 1, true);
-                Debug.LogError("RandomMove " + -randomMove.move.position + " " + -randomMove.move.rotation);
-                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(-randomMove.move.position), -randomMove.move.rotation);
-                allMoves.Remove(randomMove);
-                bestScore = Mathf.Max(score, bestScore);
+
+                if (allMoves.Count != 0)
+                {
+                    var randomMove = allMoves.GetRandom();
+                    // Debug.LogError(randomMove.piece.name + " RandomMove " + randomMove.move.position + " " + randomMove.move.rotation);
+                    randomMove.piece.MoveAI(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
+                    // Debug.LogError(randomMove.piece.name + " " + randomMove.piece.Position);
+                    float score = Minimax(context, depth + 1, true);
+                    // Debug.LogError(randomMove.piece.name + " RandomMove " + -randomMove.move.position + " " + -randomMove.move.rotation);
+                    // Debug.LogError(randomMove.piece.name + " " + randomMove.piece.Position);
+                    randomMove.piece.MoveAI(context, context.GameManager.GetCellFromPosition(randomMove.move.position-randomMove.move.position), -randomMove.move.rotation);
+                    //allMoves.Remove(randomMove);
+                    bestScore = Mathf.Min(score, bestScore);
+                }
             }
         }
 
