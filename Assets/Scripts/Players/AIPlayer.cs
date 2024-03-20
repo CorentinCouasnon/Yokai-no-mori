@@ -23,21 +23,24 @@ public class AIPlayer : Player
             {
                 allMoves.Add((piece, allowedMove));
             }
-            
-            var randomMove = allMoves.GetRandom();
-            Debug.Log(randomMove);
-            randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
-            float score = Minimax(context, 0, false);
-            randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(-randomMove.move.position), -randomMove.move.rotation);
 
-            if (score > bestScore)
+            if (allMoves.Count != 0)
             {
-                bestScore = score;
-                moveToPlay = randomMove;
-            }
-            else
-            {
-                allMoves.Remove(randomMove);
+                var randomMove = allMoves.GetRandom();
+                Debug.Log(randomMove);
+                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(randomMove.move.position), randomMove.move.rotation);
+                float score = Minimax(context, 0, false);
+                randomMove.piece.Move(context, context.GameManager.GetCellFromPosition(-randomMove.move.position), -randomMove.move.rotation);
+
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    moveToPlay = randomMove;
+                }
+                else
+                {
+                    allMoves.Remove(randomMove);
+                }
             }
         }
 
