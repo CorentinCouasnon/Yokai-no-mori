@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Piece : MonoBehaviour
 {
     [SerializeField] Vector2 _startPosition;
-    [SerializeField] public Player _startingOwner;
+    [SerializeField] public Player startingOwner;
     
     [field: SerializeField] public PiecesType Type { get; set; }
     [field: SerializeField] public Vector2[] Directions { get; set; }
@@ -204,7 +205,7 @@ public class Piece : MonoBehaviour
     public void ResetPiece(GameContext context)
     {
         Position = _startPosition;
-        Owner = _startingOwner;
+        Owner = startingOwner;
         transform.position = context.GameManager.GetCellFromPosition(Position).transform.position;
         transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0);
         IsCaptured = false;
