@@ -35,7 +35,7 @@ public class AIPlayer : Player
             {
                 var cloneContext = context.Clone();
                 piece.Piece.Move(cloneContext, cloneContext.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
-                float score = Minimax(cloneContext, 6, false);
+                float score = Minimax(cloneContext, (int) context.GameManager.GetGameDifficulty(), false);
                 
                 if (score > bestScore)
                 {
@@ -54,6 +54,8 @@ public class AIPlayer : Player
         {
             return Evaluate(context);
         }
+        
+        
 
         float bestScore;
 
