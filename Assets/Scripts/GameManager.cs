@@ -1,8 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+public enum GameDifficulty
+{
+    Easy = 2,
+    Medium = 4,
+    Hard = 6,
+}
 public class GameManager : MonoBehaviour
 {
     [Header("UI")] 
@@ -17,7 +25,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Piece _kodamaPrefab;
     [SerializeField] Piece _kodamaSamuraiPrefab;
-    
+
+    [Header("Game Setup")] 
+    [SerializeField] Player _humanPlayer1; 
+    [SerializeField] Player _humanPlayer2; 
+    [SerializeField] Player _AIPlayer1; 
+    [SerializeField] Player _AIPlayer2; 
+    [SerializeField] List<CapturedCell> _capturedCellsPlayer1 = new List<CapturedCell>(); 
+    [SerializeField] List<CapturedCell> _capturedCellsPlayer2 = new List<CapturedCell>(); 
+    [SerializeField] List<Piece> _piecesPlayer1 = new List<Piece>(); 
+    [SerializeField] List<Piece> _piecesPlayer2 = new List<Piece>(); 
+    GameDifficulty _selectedDifficulty = GameDifficulty.Easy;
+
     GameContext _gameContext;
     
     public IEnumerator Play()
@@ -51,20 +70,76 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-    void Start()
-    {
-        RestartGame();
-    }
-
+    
     public void RestartGame()
     {
         StartCoroutine(Play());
     }
 
+    public void SetGameDifficulty(int difficulty)
+    {
+        _selectedDifficulty = (GameDifficulty) difficulty;
+    }
+
+    public void SetupPlayerVSAI()
+    {
+        _player1 = _AIPlayer1;
+        _player2 = _humanPlayer2;
+        _AIPlayer1.gameObject.SetActive(true);
+        _AIPlayer2.gameObject.SetActive(false);
+        _humanPlayer1.gameObject.SetActive(false);
+        _humanPlayer2.gameObject.SetActive(true);
+
+        SetupPlayerPieces();
+        RestartGame();
+    }
+    
+    public void SetupPlayerVSPlayer()
+    {
+        _player1 = _humanPlayer1;
+        _player2 = _humanPlayer2;
+        _AIPlayer1.gameObject.SetActive(false);
+        _AIPlayer2.gameObject.SetActive(false);
+        _humanPlayer1.gameObject.SetActive(true);
+        _humanPlayer2.gameObject.SetActive(true);
+
+        SetupPlayerPieces();
+        RestartGame();
+    }
+
+    void SetupPlayerPieces()
+    {
+        
+        // Captured Cells
+        foreach (var cell in _capturedCellsPlayer1)
+        {
+            cell.Owner = _player1;
+        }
+
+        foreach (var cell in _capturedCellsPlayer2)
+        {
+            cell.Owner = _player2;
+        }
+
+        // Pieces
+        foreach (var piece in _piecesPlayer1)
+        {
+            piece.startingOwner = _player1;
+        }
+        
+        foreach (var piece in _piecesPlayer2)
+        {
+            piece.startingOwner = _player2;
+        }
+    }
     GameContext CreateContext()
     {
         return new GameContext(this, _allPieces.Select(piece => piece.PieceData).ToList(), _player1.PlayerData, _player2.PlayerData);
+    }
+
+    public GameDifficulty GetGameDifficulty()
+    {
+        return _selectedDifficulty;
     }
 
     public bool IsGameOver(GameContext context)
