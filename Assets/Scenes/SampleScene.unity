@@ -5894,14 +5894,28 @@ MonoBehaviour:
   _player2: {fileID: 209491063}
   _kodamaPrefab: {fileID: 267175264730780038, guid: 7177d6921951dbc4ba592cc78e3fef21, type: 3}
   _kodamaSamuraiPrefab: {fileID: 8584376461806428290, guid: 4b15c7fa16345104da5e15164ccf6a81, type: 3}
-  _humanPlayer1: {fileID: 0}
-  _humanPlayer2: {fileID: 0}
-  _AIPlayer1: {fileID: 0}
-  _AIPlayer2: {fileID: 0}
-  _capturedCellsPlayer1: []
-  _capturedCellsPlayer2: []
-  _piecesPlayer1: []
-  _piecesPlayer2: []
+  _humanPlayer1: {fileID: 24502889}
+  _humanPlayer2: {fileID: 209491063}
+  _AIPlayer1: {fileID: 461822603}
+  _AIPlayer2: {fileID: 1202336298}
+  _capturedCellsPlayer1:
+  - {fileID: 1172052373}
+  - {fileID: 287952229}
+  - {fileID: 801338787}
+  _capturedCellsPlayer2:
+  - {fileID: 273052557}
+  - {fileID: 857536438}
+  - {fileID: 1121943939}
+  _piecesPlayer1:
+  - {fileID: 2073168584}
+  - {fileID: 1401334943}
+  - {fileID: 962754605}
+  - {fileID: 135145686}
+  _piecesPlayer2:
+  - {fileID: 1369150464}
+  - {fileID: 716663193}
+  - {fileID: 1368023739}
+  - {fileID: 1794650099}
 --- !u!4 &1784286390
 Transform:
   m_ObjectHideFlags: 0
