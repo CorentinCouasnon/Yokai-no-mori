@@ -64,7 +64,12 @@ public class Piece : MonoBehaviour
             IsParachuted = false;
             transform.position += new Vector3(direction.x, direction.y);
         }
-        
+
+        if (Type == PiecesType.Kodama)
+        {
+            context.GameManager.CheckKodamaPromoted(context);
+        }
+
         // Déplacement
         Position = newPosition;
     }
@@ -80,7 +85,7 @@ public class Piece : MonoBehaviour
         {
             _lastCapturedPiece.Position = _lastCapturedPiece._lastPositionBeforeCaptured;
             _lastCapturedPiece.transform.position = _lastCapturedPiece._lastPositionBeforeCaptured;
-            _lastCapturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0);
+            _lastCapturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 0 : 180);
             _lastCapturedPiece.IsCaptured = false;
             _lastCapturedPiece.Owner = _lastCapturedPiece.Owner == context.Player1 ? context.Player2 : context.Player1;
             context.GameManager.RemovePieceFromCapturedCell(_lastCapturedPiece);

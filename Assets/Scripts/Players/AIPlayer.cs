@@ -33,10 +33,12 @@ public class AIPlayer : Player
         {
             foreach (var allowedMove in piece.GetAllowedMoves(context))
             {
+                Debug.LogError(piece.name + " " + allowedMove);
                 piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
+                Debug.LogError("Piece : " + piece.Type + " " + piece.Position);
                 float score = Minimax(context, 0, false);
                 piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
-
+                Debug.LogError("Undo Piece : " + piece.Type + " " + piece.Position);
                 if (score > bestScore)
                 {
                     bestScore = score;
@@ -45,12 +47,13 @@ public class AIPlayer : Player
             }
         }
 
+        Debug.LogError(moveToPlay.piece.name + " MoveToPlay " + moveToPlay.move.position + " " + moveToPlay.move.rotation);
         moveToPlay.piece.Move(context, context.GameManager.GetCellFromPosition(moveToPlay.move.position), moveToPlay.move.rotation);
     }
     
     private int Minimax(GameContext context, int depth, bool isMaximizing)
     {
-        if (depth > 3)
+        if (depth > 2)
         {
             return 0;
         }
@@ -66,13 +69,13 @@ public class AIPlayer : Player
         if (isMaximizing)
         {
             bestScore = -Mathf.Infinity;
-            foreach (var piece in context.Player1Pieces)
+            foreach (var pieceP1 in context.Player1Pieces)
             {
-                foreach (var allowedMove in piece.GetAllowedMoves(context))
+                foreach (var allowedMove in pieceP1.GetAllowedMoves(context))
                 {
-                    piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
+                    pieceP1.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
                     float score = Minimax(context, depth + 1, false);
-                    piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
+                    pieceP1.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
                     bestScore = Mathf.Max(score, bestScore);
                 }
             }
@@ -81,13 +84,13 @@ public class AIPlayer : Player
         else
         {
             bestScore = Mathf.Infinity;
-            foreach (var piece in context.Player2Pieces)
+            foreach (var pieceP2 in context.Player2Pieces)
             {
-                foreach (var allowedMove in piece.GetAllowedMoves(context))
+                foreach (var allowedMove in pieceP2.GetAllowedMoves(context))
                 {
-                    piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
+                    pieceP2.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
                     float score = Minimax(context, depth + 1, true);
-                    piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
+                    pieceP2.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
                     bestScore = Mathf.Min(score, bestScore);
                 }
             }

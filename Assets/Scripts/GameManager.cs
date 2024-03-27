@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour
             else
                 yield return StartCoroutine(_player2.Play(_gameContext));
 
-            CheckKodamaPromoted(_gameContext);
-            
             if (IsGameOver(_gameContext))
                 break;
             
@@ -131,7 +129,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CheckKodamaPromoted(GameContext context)
+    public void CheckKodamaPromoted(GameContext context)
     {
         List<Piece> kodamas = context.AllPieces.FindAll(piece => piece.Type == PiecesType.Kodama);
 
@@ -215,13 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void RemovePieceFromCapturedCell(Piece piece)
     {
-        // Debug.LogError("Remove Piece From Captured Cell " + piece);
-        // foreach (var capturedCellUnity in _capturedCells)
-        // {
-        //     Debug.LogError(capturedCellUnity.Position);
-        //     Debug.LogError(capturedCellUnity.CapturedPiece);
-        // }
-        CapturedCell capturedCell = _capturedCells.First(cell => cell.CapturedPiece == piece);
+        CapturedCell capturedCell = _capturedCells.FirstOrDefault(cell => cell.CapturedPiece == piece);
         if (capturedCell != null)
         {
             capturedCell.CapturedPiece = null;
