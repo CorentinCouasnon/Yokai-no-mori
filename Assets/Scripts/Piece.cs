@@ -15,7 +15,10 @@ public class Piece : MonoBehaviour
     [field: SerializeField] public Vector2 Position { get; set; }
     public bool IsCaptured { get; set; }
     public bool IsParachuted { get; set; }
-    
+
+    private Vector2 _lastPositionBeforeCaptured;
+    private Piece _lastCapturedPiece;
+
     public void Move(GameContext context, Cell cell, Vector2 direction)
     {
         // Enregistrement de l'action
@@ -66,11 +69,52 @@ public class Piece : MonoBehaviour
         Position = newPosition;
     }
 
-    public void MoveAI(GameContext context, Cell cell, Vector2 direction)
+    public void MoveAI(GameContext context, Cell cell, Vector2 direction, bool checkUndoMove = false)
     {
         // Enregistrement de l'action
         Vector2 newPosition = cell.Position;
         context.Actions.Add((this, newPosition));
+        
+        // Minimax Test
+        if (checkUndoMove && _lastCapturedPiece != null)
+        {
+            _lastCapturedPiece.Position = _lastCapturedPiece._lastPositionBeforeCaptured;
+            _lastCapturedPiece.transform.position = _lastCapturedPiece._lastPositionBeforeCaptured;
+            _lastCapturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0);
+            _lastCapturedPiece.IsCaptured = false;
+            _lastCapturedPiece.Owner = _lastCapturedPiece.Owner == context.Player1 ? context.Player2 : context.Player1;
+            context.GameManager.RemovePieceFromCapturedCell(_lastCapturedPiece);
+        }
+
+        _lastCapturedPiece = null;
+        
+        // Capture
+        var capturedPiece = context.AllPieces.FirstOrDefault(piece => piece.Position == newPosition);
+        // Debug.LogError(newPosition + " " +capturedPiece);
+        if (capturedPiece != null)
+        {
+            // Minimax Test
+            {
+                capturedPiece._lastPositionBeforeCaptured = cell.Position;
+                _lastCapturedPiece = capturedPiece;
+            }
+            
+            capturedPiece.Owner = context.IsFirstPlayerTurn ? context.Player1 : context.Player2;
+            capturedPiece.IsCaptured = true;
+            if (capturedPiece.Type != PiecesType.Koropokkuru)
+            {
+                CapturedCell capturedCell = context.GameManager.GetRemainingCapturedCell(Owner);
+                if (capturedCell != null)
+                {
+                    // Debug.LogError("CaptureCell Transform Position " + capturedCell.transform.position);
+                    // Debug.LogError("CaptureCell Position " + capturedCell.Position);
+                    capturedPiece.transform.position = capturedCell.transform.position;
+                    capturedPiece.Position = capturedCell.Position;
+                    capturedCell.CapturedPiece = capturedPiece;
+                    capturedPiece.transform.rotation = Quaternion.Euler(0, 0, Owner == context.Player1 ? 180 : 0); 
+                }
+            }
+        }
         
         if (IsCaptured)
         {
@@ -125,6 +169,32 @@ public class Piece : MonoBehaviour
 
         return moves;
     }
+    
+    // public string GetFENName(GameContext context)
+    // {
+    //     string returnValue = "";
+    //
+    //     switch (Type)
+    //     {
+    //         case PiecesType.Kitsune :
+    //             returnValue = Owner == context.Player1 ? "KI" : "ki";
+    //             break;
+    //         case PiecesType.Kodama : 
+    //             returnValue = Owner == context.Player1 ? "KO" : "ko";
+    //             break;
+    //         case PiecesType.Koropokkuru : 
+    //             returnValue = Owner == context.Player1 ? "KOR" : "kor";
+    //             break;
+    //         case PiecesType.Tanuki : 
+    //             returnValue = Owner == context.Player1 ? "TA" : "ta";
+    //             break;
+    //         case PiecesType.KodamaSamurai : 
+    //             returnValue = Owner == context.Player1 ? "KOS" : "kos";
+    //             break;
+    //     }
+    //     
+    //     return returnValue;
+    // }
 
     public void ResetPiece(GameContext context)
     {

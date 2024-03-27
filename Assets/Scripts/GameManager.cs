@@ -215,7 +215,17 @@ public class GameManager : MonoBehaviour
 
     public void RemovePieceFromCapturedCell(Piece piece)
     {
-        _capturedCells.First(cell => cell.CapturedPiece == piece).CapturedPiece = null;
+        // Debug.LogError("Remove Piece From Captured Cell " + piece);
+        // foreach (var capturedCellUnity in _capturedCells)
+        // {
+        //     Debug.LogError(capturedCellUnity.Position);
+        //     Debug.LogError(capturedCellUnity.CapturedPiece);
+        // }
+        CapturedCell capturedCell = _capturedCells.First(cell => cell.CapturedPiece == piece);
+        if (capturedCell != null)
+        {
+            capturedCell.CapturedPiece = null;
+        }
     }
 }
 
