@@ -4,13 +4,23 @@ using UnityEngine;
 
 public enum GameOverScore
 {
-    P1Win = 10,
-    P2Win = -10,
+    P1Win = 1000,
+    P2Win = -1000,
     Tie = 0,
 }
+
 public class AIPlayer : Player
 {
     readonly WaitForSeconds _waitOneSec = new WaitForSeconds(5);
+    
+    readonly Dictionary<PiecesType, (int onBoard, int inHand)> PiecesValue = new Dictionary<PiecesType, (int onBoard, int inHand)>()
+    {
+        { PiecesType.Kodama, (2, 1) },
+        { PiecesType.Kitsune, (6, 3) },
+        { PiecesType.Tanuki, (6, 3) },
+        { PiecesType.KodamaSamurai, (12, 0) },
+        { PiecesType.Koropokkuru, (0, 0) },
+    };
     
     public override IEnumerator Play(GameContext context)
     {
@@ -85,5 +95,25 @@ public class AIPlayer : Player
         }
 
         return (int) bestScore;
+    }
+    
+    int Evaluate(GameContext context)
+    {
+        if (context.GameManager.IsGameOver(context))
+            return (int) context.GameManager.CheckWinner(context);
+        
+        return GetTotalPieceValue(context.Player1Pieces) - GetTotalPieceValue(context.Player2Pieces);
+    }
+
+    int GetTotalPieceValue(List<Piece> pieces)
+    {
+        var total = 0;
+
+        foreach (var piece in pieces)
+        {
+            total += piece.IsCaptured ? PiecesValue[piece.Type].inHand : PiecesValue[piece.Type].onBoard;
+        }
+        
+        return total;
     }
 }
