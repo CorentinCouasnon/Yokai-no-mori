@@ -62,7 +62,7 @@ public class AIPlayer : Player
     
     private int Minimax(GameContext context, int depth, bool isMaximizing)
     {
-        if (depth > 1)
+        if (depth > 2)
         {
             return 0;
         }
