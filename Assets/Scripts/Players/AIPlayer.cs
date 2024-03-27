@@ -31,36 +31,28 @@ public class AIPlayer : Player
         
         foreach (var piece in context.OwnPieces)
         {
-            foreach (var allowedMove in piece.GetAllowedMoves(context))
+            foreach (var allowedMove in piece.Piece.GetAllowedMoves(context))
             {
-                Debug.LogError(piece.name + " " + allowedMove);
-                piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
-                Debug.LogError("Piece : " + piece.Type + " " + piece.Position);
-                float score = Minimax(context, 0, false);
-                piece.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
-                Debug.LogError("Undo Piece : " + piece.Type + " " + piece.Position);
+                var cloneContext = context.Clone();
+                piece.Piece.Move(cloneContext, cloneContext.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
+                float score = Minimax(cloneContext, 6, false);
+                
                 if (score > bestScore)
                 {
                     bestScore = score;
-                    moveToPlay = (piece, allowedMove);
+                    moveToPlay = (piece.Piece, allowedMove);
                 }
             }
         }
-
-        Debug.LogError(moveToPlay.piece.name + " MoveToPlay " + moveToPlay.move.position + " " + moveToPlay.move.rotation);
+        
         moveToPlay.piece.Move(context, context.GameManager.GetCellFromPosition(moveToPlay.move.position), moveToPlay.move.rotation);
     }
     
-    private int Minimax(GameContext context, int depth, bool isMaximizing)
+    int Minimax(GameContext context, int depth, bool isMaximizing)
     {
-        if (depth > 2)
+        if (depth == 0 || context.GameManager.IsGameOver(context))
         {
-            return 0;
-        }
-        
-        if (context.GameManager.IsGameOver(context))
-        {
-            return (int) context.GameManager.CheckWinner(context);
+            return Evaluate(context);
         }
 
         float bestScore;
@@ -69,13 +61,13 @@ public class AIPlayer : Player
         if (isMaximizing)
         {
             bestScore = -Mathf.Infinity;
-            foreach (var pieceP1 in context.Player1Pieces)
+            foreach (var piece in context.Player1Pieces)
             {
-                foreach (var allowedMove in pieceP1.GetAllowedMoves(context))
+                foreach (var allowedMove in piece.Piece.GetAllowedMoves(context))
                 {
-                    pieceP1.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
-                    float score = Minimax(context, depth + 1, false);
-                    pieceP1.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
+                    var cloneContext = context.Clone();
+                    piece.Piece.Move(cloneContext, cloneContext.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
+                    float score = Minimax(context, depth - 1, false);
                     bestScore = Mathf.Max(score, bestScore);
                 }
             }
@@ -84,19 +76,19 @@ public class AIPlayer : Player
         else
         {
             bestScore = Mathf.Infinity;
-            foreach (var pieceP2 in context.Player2Pieces)
+            foreach (var piece in context.Player2Pieces)
             {
-                foreach (var allowedMove in pieceP2.GetAllowedMoves(context))
+                foreach (var allowedMove in piece.Piece.GetAllowedMoves(context))
                 {
-                    pieceP2.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
-                    float score = Minimax(context, depth + 1, true);
-                    pieceP2.MoveAI(context, context.GameManager.GetCellFromPosition(allowedMove.position-allowedMove.rotation), -allowedMove.rotation, true);
+                    var cloneContext = context.Clone();
+                    piece.Piece.Move(cloneContext, cloneContext.GameManager.GetCellFromPosition(allowedMove.position), allowedMove.rotation);
+                    float score = Minimax(context, depth - 1, true);
                     bestScore = Mathf.Min(score, bestScore);
                 }
             }
         }
 
-        return Evaluate(context);
+        return (int) bestScore;
     }
     
     int Evaluate(GameContext context)
@@ -107,7 +99,7 @@ public class AIPlayer : Player
         return GetTotalPieceValue(context.Player1Pieces) - GetTotalPieceValue(context.Player2Pieces);
     }
 
-    int GetTotalPieceValue(List<Piece> pieces)
+    int GetTotalPieceValue(List<PieceData> pieces)
     {
         var total = 0;
 

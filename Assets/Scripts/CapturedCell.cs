@@ -1,10 +1,13 @@
-﻿using System;
+﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class CapturedCell : Cell
 {
-    [field: SerializeField] public Piece CapturedPiece { get; set; }
     [field: SerializeField] public Player Owner { get; private set; }
+    [field: SerializeField] public int Limit { get; private set; }
+
+    public bool IsOccupied(GameContext context)
+    {
+        return context.AllPieces.Where(pieceData => pieceData.Owner.Index == Owner.IndexPlayer).Count(piece => piece.IsCaptured) + 1 <= Limit;
+    }
 }

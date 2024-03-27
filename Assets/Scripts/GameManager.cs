@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour
     
     public IEnumerator Play()
     {
-        _gameContext = CreateContext();
+        ResetAllPlayers();
         ResetAllPieces();
-        ResetCapturedCells();
+        
+        _gameContext = CreateContext();
+        
         _mainMenuUI.ChangePlayerTurnUI(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
         
         while (true)
@@ -34,6 +36,13 @@ public class GameManager : MonoBehaviour
             else
                 yield return StartCoroutine(_player2.Play(_gameContext));
 
+            CheckKodamaPromoted(_gameContext);
+
+            foreach (var piece in _allPieces)
+            {
+                piece.UpdatePiece(_gameContext);
+            }
+
             if (IsGameOver(_gameContext))
                 break;
             
@@ -41,14 +50,6 @@ public class GameManager : MonoBehaviour
             _mainMenuUI.ChangePlayerTurnUI(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
 
         }
-
-        // if (!IsThreeFoldRepetition(_gameContext))
-        // {
-        //     Debug.Log("Winner is " + (_gameContext.IsFirstPlayerTurn ? "Player 1" : "Player 2") + " !");
-        //     _mainMenuUI.EndGame(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
-        // }
-        // else
-        //     Debug.Log("Game ends in a draw !");
     }
 
     void Start()
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     GameContext CreateContext()
     {
-        return new GameContext(this, _allPieces, _player1, _player2);
+        return new GameContext(this, _allPieces.Select(piece => piece.PieceData).ToList(), _player1.PlayerData, _player2.PlayerData);
     }
 
     public bool IsGameOver(GameContext context)
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
 
     bool AnyKoropokkuruCaptured(GameContext context)
     {
-        return _allPieces.Where(piece => piece.Type == PiecesType.Koropokkuru).Any(piece => piece.IsCaptured);
+        return context.AllPieces.Where(piece => piece.Type == PiecesType.Koropokkuru).Any(piece => piece.IsCaptured);
     }
 
     bool AnyKoropokkuruPromotedAndSafe(GameContext context)
@@ -112,7 +113,7 @@ public class GameManager : MonoBehaviour
             .Where(piece => piece.Type == PiecesType.Koropokkuru)
             .Any(IsKoropokkuruPromotedAndSafe);
 
-        bool IsKoropokkuruPromotedAndSafe(Piece koropokkuru)
+        bool IsKoropokkuruPromotedAndSafe(PieceData koropokkuru)
         {
             var isPlayer1Piece = koropokkuru.Owner == context.Player1;
             var promotingRow = isPlayer1Piece ? 0 : 3;
@@ -123,44 +124,47 @@ public class GameManager : MonoBehaviour
 
             return !opponentPieces
                 .Any(opponentPiece => opponentPiece
+                    .Piece
                     .GetAllowedMoves(context)
                     .Select(move => move.Item1)
                     .Contains(koropokkuru.Position));
         }
     }
 
-    public void CheckKodamaPromoted(GameContext context)
+    void CheckKodamaPromoted(GameContext context)
     {
-        List<Piece> kodamas = context.AllPieces.FindAll(piece => piece.Type == PiecesType.Kodama);
-
-        foreach (var kodama in kodamas)
+        for (var i = 0; i < context.AllPieces.Count; i++)
         {
-            var isPlayer1Piece = kodama.Owner == context.Player1;
+            var piece = context.AllPieces[i];
+            
+            if (piece.Type != PiecesType.Kodama)
+                continue;
+            
+            var isPlayer1Piece = piece.Owner == context.Player1;
             var promotingRow = isPlayer1Piece ? 0 : 3;
 
-            if (Mathf.Approximately(kodama.Position.y, promotingRow) && !kodama.IsParachuted)
+            if (Mathf.Approximately(piece.Position.y, promotingRow) && !piece.IsParachuted)
             {
-                // Transforme en samourai
-                ChangePieceToArchetype(kodama, PiecesType.KodamaSamurai);
+                context.AllPieces[i] = ChangePieceToArchetype(piece, PiecesType.KodamaSamurai);
             }
         }
     }
 
-    public void ChangePieceToArchetype(Piece piece, PiecesType piecesType)
+    public PieceData ChangePieceToArchetype(PieceData piece, PiecesType piecesType)
     {
         switch (piecesType)
         {
             case PiecesType.Kodama : 
                 piece.Type = _kodamaPrefab.Type;
                 piece.Directions = _kodamaPrefab.Directions;
-                piece.SpriteRenderer.sprite = _kodamaPrefab.SpriteRenderer.sprite;
                 break;
             case PiecesType.KodamaSamurai :
                 piece.Type = _kodamaSamuraiPrefab.Type;
                 piece.Directions = _kodamaSamuraiPrefab.Directions;
-                piece.SpriteRenderer.sprite = _kodamaSamuraiPrefab.SpriteRenderer.sprite;
                 break;
         }
+
+        return piece;
     }
 
     bool IsThreeFoldRepetition(GameContext context)
@@ -183,64 +187,34 @@ public class GameManager : MonoBehaviour
         return context.Actions[^1] == context.Actions[^5] && context.Actions[^2] == context.Actions[^6];
     }
 
-    [ContextMenu("ResetAllPieces")]
-    public void ResetAllPieces()
-    {
-        _gameContext.IsFirstPlayerTurn = true;
-        foreach (var piece in _allPieces)
-        {
-            piece.ResetPiece(_gameContext);
-        }
-    }
-
-    public void ResetCapturedCells()
-    {
-        foreach (var capturedCell in _capturedCells)
-        {
-            capturedCell.CapturedPiece = null;
-        }
-    }
-
     public Cell GetCellFromPosition(Vector2 pos)
     {
         return _cells.Find(cell => cell.Position == pos);
     }
-
-    public CapturedCell GetRemainingCapturedCell(Player player)
-    {
-        return _capturedCells.First(cell => cell.Owner == player && cell.CapturedPiece == null);
-    }
-
-    public void RemovePieceFromCapturedCell(Piece piece)
-    {
-        CapturedCell capturedCell = _capturedCells.FirstOrDefault(cell => cell.CapturedPiece == piece);
-        if (capturedCell != null)
-        {
-            capturedCell.CapturedPiece = null;
-        }
-    }
-}
-
-public class GameContext
-{
-    public GameManager GameManager { get; }
-    public List<Piece> AllPieces { get; }
-    public Player Player1 { get; }
-    public Player Player2 { get; }
     
-    public List<Piece> Player1Pieces => AllPieces.Where(piece => piece.Owner == Player1).ToList();
-    public List<Piece> Player2Pieces => AllPieces.Where(piece => piece.Owner == Player2).ToList();
-    public List<Piece> OwnPieces => AllPieces.Where(piece => piece.Owner == (IsFirstPlayerTurn ? Player1 : Player2)).ToList();
-    public List<Piece> OpponentPieces => AllPieces.Where(piece => piece.Owner != (IsFirstPlayerTurn ? Player1 : Player2)).ToList();
-
-    public bool IsFirstPlayerTurn { get; set; } = true;
-    public List<(Piece piece, Vector2 position)> Actions { get; set; } = new List<(Piece piece, Vector2 position)>();
-
-    public GameContext(GameManager gameManager, List<Piece> allPieces, Player player1, Player player2)
+    public Cell GetAnyCellFromPosition(Vector2 pos)
     {
-        GameManager = gameManager;
-        AllPieces = allPieces;
-        Player1 = player1;
-        Player2 = player2;
+        return _cells.Concat(_capturedCells).ToList().Find(cell => cell.Position == pos);
+    }
+
+    public Vector2 GetCaptureCellPosition(GameContext context, PlayerData player)
+    {
+        var cells = _capturedCells.Where(c => c.Owner.IndexPlayer == player.Index);
+
+        return cells.FirstOrDefault(c => c.IsOccupied(context))?.Position ?? default;
+    }
+
+    void ResetAllPlayers()
+    {
+        _player1.ResetPlayer();
+        _player2.ResetPlayer();
+    }
+    
+    void ResetAllPieces()
+    {
+        foreach (var piece in _allPieces)
+        {
+            piece.ResetPiece(this);
+        }
     }
 }

@@ -1,19 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class HumanPlayer : Player
 {
     int _playerIndex;
     bool _canPlay = false;
-    bool _turnIsEnded = false;
+    bool _isTurnOver = false;
     
     List<(Cell,Vector2)> _selectableCells = new List<(Cell,Vector2)>();
     Piece _selectedPiece;
     
     GameContext _gameContext;
-    
 
     void OnEnable()
     {
@@ -27,22 +25,20 @@ public class HumanPlayer : Player
 
     public override IEnumerator Play(GameContext context)
     {
-        Debug.Log("Play " + gameObject.name);
         _canPlay = true;
-        _turnIsEnded = false;
+        _isTurnOver = false;
         _selectableCells.Clear();
         _selectedPiece = null;
         _gameContext = context;
-        yield return new WaitUntil(()=> _turnIsEnded);
+        yield return new WaitUntil(() => _isTurnOver);
         _canPlay = false;
-        Debug.Log("End Turn " + gameObject.name);
     }
 
     void OnCellClicked(Cell cell)
     {
         if (_canPlay)
         {
-            Piece piece = _gameContext.OwnPieces.Find(piece => piece.Position == cell.Position);
+            Piece piece = _gameContext.OwnPieces.Find(piece => piece.Position == cell.Position).Piece;
 
             if (!_selectedPiece)
             {
@@ -90,7 +86,7 @@ public class HumanPlayer : Player
                     _selectedPiece = null;
                     if (hasMoved)
                     {
-                        _turnIsEnded = true;
+                        _isTurnOver = true;
                     }
                 }
             }

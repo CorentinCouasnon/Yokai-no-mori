@@ -1,6 +1,6 @@
 ﻿public enum PiecesType
 {
-    None = -1,
+    None = 0,
     Koropokkuru = 1,
     Kitsune = 2,
     Tanuki = 3,
