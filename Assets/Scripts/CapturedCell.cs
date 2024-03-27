@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CapturedCell : Cell
 {
-    [field: SerializeField] public Player Owner { get; private set; }
+    [field: SerializeField] public Player Owner { get; set; }
     [field: SerializeField] public int Limit { get; private set; }
 
     public bool IsOccupied(GameContext context)

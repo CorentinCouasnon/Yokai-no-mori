@@ -11,6 +11,7 @@ public enum GameDifficulty
     Medium = 4,
     Hard = 6,
 }
+
 public class GameManager : MonoBehaviour
 {
     [Header("UI")] 
@@ -67,7 +68,6 @@ public class GameManager : MonoBehaviour
             
             _gameContext.IsFirstPlayerTurn = !_gameContext.IsFirstPlayerTurn;
             _mainMenuUI.ChangePlayerTurnUI(_gameContext.IsFirstPlayerTurn ? _player1 : _player2);
-
         }
     }
     
@@ -124,14 +124,15 @@ public class GameManager : MonoBehaviour
         // Pieces
         foreach (var piece in _piecesPlayer1)
         {
-            piece.startingOwner = _player1;
+            piece._startingOwner = _player1;
         }
         
         foreach (var piece in _piecesPlayer2)
         {
-            piece.startingOwner = _player2;
+            piece._startingOwner = _player2;
         }
     }
+    
     GameContext CreateContext()
     {
         return new GameContext(this, _allPieces.Select(piece => piece.PieceData).ToList(), _player1.PlayerData, _player2.PlayerData);
